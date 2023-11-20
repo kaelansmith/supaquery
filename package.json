@@ -1,0 +1,49 @@
+{
+  "name": "supaquery",
+  "version": "0.0.1",
+  "description": "Easily integrate Supabase & React Query.",
+  "main": "dist/index",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsc -p tsconfig.json -w",
+    "build": "npm run build-ts",
+    "build-ts": "tsc -p tsconfig.json",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaelansmith/supaquery.git"
+  },
+  "keywords": [
+    "supaquery",
+    "supabase",
+    "supabase-js",
+    "supabase.js",
+    "react query",
+    "tanstack query",
+    "supabase-cache-helpers"
+  ],
+  "author": "Kaelan Smith",
+  "license": "LGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/kaelansmith/supaquery/issues"
+  },
+  "homepage": "https://github.com/kaelansmith/supaquery#readme",
+  "devDependencies": {
+    "@types/node": "^18.18.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "@supabase/supabase-js": ">= 2.7.1",
+    "@supabase/postgrest-js": ">= 1.1.x",
+    "supastruct": ">= 0.0.1",
+    "react-query": ">= 3.x.x"
+  }
+}
