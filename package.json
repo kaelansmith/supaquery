@@ -1,5 +1,5 @@
 {
-  "name": "supaquery",
+  "name": "@kaelan/supaquery",
   "version": "0.0.1",
   "description": "Easily integrate Supabase & React Query.",
   "main": "dist/index",

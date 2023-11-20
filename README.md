@@ -5,7 +5,7 @@ Easily integrate Supabase &amp; React Query to boost performance of your app and
 # Install
 
 ```bash
-npm install supaquery
+npm install @kaelan/supaquery
 ```
 
 # Core Concepts
