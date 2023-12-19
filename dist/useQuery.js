@@ -44,12 +44,13 @@ function useQuery(query, options) {
     // ========================
     // Set up coupled mutation:
     // ========================
+    const supabaseProxyClient = finalQuery.getProxyClient();
     const supabaseClient = finalQuery.getSupabaseClient();
     const queryClient = (0, react_query_1.useQueryClient)();
     const _a = (0, react_query_1.useMutation)((partialMutationQueryMeta) => __awaiter(this, void 0, void 0, function* () {
         const { mergedQueryMeta } = (0, helpers_1.getCoupledMutationQueryMeta)(partialMutationQueryMeta, queryMeta);
-        // execute the mutation query:
-        const { data, error } = yield (0, supastruct_1.supastruct)(supabaseClient, mergedQueryMeta);
+        // execute the mutation query using the original/same proxyClient as the query, :
+        const { data, error } = yield (0, supastruct_1.supastruct)(supabaseProxyClient, mergedQueryMeta);
         if (error)
             throw (0, helpers_1.buildSupabaseErrorMessage)(error); // triggers `onError` callback
         return data; // gets passed to `onSuccess` and `onSettled` as 1st arg

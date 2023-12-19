@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mutateWrapper = void 0;
 const supastruct_1 = require("supastruct");
-const supastruct_2 = require("supastruct");
 const mutateWrapper = (mutateFn, options) => {
     const { primaryKey, supabaseClient, queryMeta } = options;
     const update = (values, mutationOptions) => {
@@ -40,9 +39,9 @@ const mutateWrapper = (mutateFn, options) => {
         mutateFn(deleteQueryMeta);
     };
     const custom = (getCustomMutation) => {
-        const client = (0, supastruct_1.createSupastructClient)(supabaseClient);
+        const client = new supastruct_1.SupastructClient(supabaseClient);
         const mutation = getCustomMutation(client.from(queryMeta.from)); // user builds upon this queryBuilder and returns a filterBuilder
-        const mutationQueryMeta = (0, supastruct_2.getMetaFromQuery)(mutation);
+        const mutationQueryMeta = (0, supastruct_1.getMetaFromQuery)(mutation);
         mutateFn(mutationQueryMeta);
     };
     return {
