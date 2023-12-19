@@ -43,7 +43,7 @@
   "peerDependencies": {
     "@supabase/supabase-js": ">= 2.7.1",
     "@supabase/postgrest-js": ">= 1.1.x",
-    "supastruct": ">= 0.0.1",
+    "supastruct": ">= 0.1.0",
     "react-query": ">= 3.x.x"
   }
 }
