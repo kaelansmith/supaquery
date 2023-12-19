@@ -50,6 +50,7 @@ export function useQuery(
   // Set up coupled mutation:
   // ========================
 
+  const supabaseProxyClient = finalQuery.getProxyClient();
   const supabaseClient = finalQuery.getSupabaseClient();
   const queryClient = useQueryClient();
 
@@ -60,8 +61,11 @@ export function useQuery(
         queryMeta
       );
 
-      // execute the mutation query:
-      const { data, error } = await supastruct(supabaseClient, mergedQueryMeta);
+      // execute the mutation query using the original/same proxyClient as the query, :
+      const { data, error } = await supastruct(
+        supabaseProxyClient,
+        mergedQueryMeta
+      );
 
       if (error) throw buildSupabaseErrorMessage(error); // triggers `onError` callback
 
