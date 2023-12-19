@@ -3,15 +3,15 @@ import {
   MutationCountOption,
   QueryMeta,
   SupabaseRecord,
+  SupastructClient,
   UpsertMutationOptions,
+  getMetaFromQuery,
 } from "supastruct";
 import {
   CustomMutationGetter,
   MutateFunction,
   MutateWrapperOptions,
 } from "./types";
-import { createSupastructClient } from "supastruct";
-import { getMetaFromQuery } from "supastruct";
 
 export const mutateWrapper = (
   mutateFn: MutateFunction,
@@ -73,7 +73,7 @@ export const mutateWrapper = (
   };
 
   const custom = (getCustomMutation: CustomMutationGetter) => {
-    const client = createSupastructClient(supabaseClient);
+    const client = new SupastructClient(supabaseClient);
     const mutation = getCustomMutation(client.from(queryMeta.from)); // user builds upon this queryBuilder and returns a filterBuilder
     const mutationQueryMeta = getMetaFromQuery(mutation);
     mutateFn(mutationQueryMeta);
