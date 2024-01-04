@@ -29,8 +29,6 @@ const getCoupledMutationQueryMeta = (partialMutationQueryMeta, initialQueryMeta)
     let mergedQueryMeta;
     let mutationQueryMeta;
     if (typeof mutation == "string") {
-        // abstracted mutation (`mutate` option #1):
-        // const { mutationOptions } = partialMutationQueryMeta;
         mutationQueryMeta = Object.assign({}, partialMutationQueryMeta);
         // if (mutation != 'delete')
         //   mutationQueryMeta.values = partialMutationQueryMeta.values;
