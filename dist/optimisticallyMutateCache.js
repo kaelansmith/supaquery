@@ -10,14 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.optimisticallyMutateCache = void 0;
-const helpers_1 = require("./helpers");
-const optimisticallyMutateCache = ({ partialMutationQueryMeta, queryMeta, queryKey, queryClient, primaryKey, }) => __awaiter(void 0, void 0, void 0, function* () {
-    const { mutationQueryMeta } = (0, helpers_1.getCoupledMutationQueryMeta)(partialMutationQueryMeta, queryMeta);
-    // const { mutation } = partialMutationQueryMeta;
+const optimisticallyMutateCache = ({ mutationQueryMeta, queryKey, queryClient, primaryKey, }) => __awaiter(void 0, void 0, void 0, function* () {
     const { mutation } = mutationQueryMeta;
     const isCustomMutation = typeof mutation != "string";
     let newData = mutation != "delete" ? mutationQueryMeta.values : null;
-    // globalMutationOptions?.onMutate?.(partialMutationQueryMeta); // call user-provided custom onMutate
     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
     yield queryClient.cancelQueries(queryKey);
     // Snapshot the previous data
@@ -35,7 +31,6 @@ const optimisticallyMutateCache = ({ partialMutationQueryMeta, queryMeta, queryK
                 const isOldDataArray = Array.isArray(oldData);
                 console.log("OPTIMISTIC UPDATE:", {
                     queryKey,
-                    queryMeta,
                     mutationQueryMeta,
                     newData,
                     oldData: isOldDataArray ? [...oldData] : Object.assign({}, oldData),
@@ -73,7 +68,6 @@ const optimisticallyMutateCache = ({ partialMutationQueryMeta, queryMeta, queryK
                             let updatedExisting = false;
                             // check if the query used the `eq` method with a primaryKey column, and extract the PK value if so:
                             let idOfRowToUpdate = newData[primaryKey];
-                            // if (queryMeta.filters)
                             if (mutation == "update" && !idOfRowToUpdate) {
                                 console.error(`You're trying to "update" an object that is missing the primary key field "${primaryKey}". Either provide the PK field in the updated data, or if it's a new record use the "upsert" method instead; or perhaps you need to supply a different "primaryKey" value to useQuery()'s options argument.`);
                                 return oldData; // couldn't perform optimistic update (edge case)

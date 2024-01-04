@@ -6,14 +6,14 @@ export declare function useQuery(query: PostgrestQueryBuilder<any, any> | Postgr
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutateAsync: (mutateCallbacks?: CoupledMutateCallbacks) => {
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutationState: {
@@ -106,14 +106,14 @@ export declare function useQuery(query: PostgrestQueryBuilder<any, any> | Postgr
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutateAsync: (mutateCallbacks?: CoupledMutateCallbacks) => {
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutationState: {
@@ -206,14 +206,14 @@ export declare function useQuery(query: PostgrestQueryBuilder<any, any> | Postgr
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutateAsync: (mutateCallbacks?: CoupledMutateCallbacks) => {
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutationState: {
@@ -306,14 +306,14 @@ export declare function useQuery(query: PostgrestQueryBuilder<any, any> | Postgr
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutateAsync: (mutateCallbacks?: CoupledMutateCallbacks) => {
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutationState: {
@@ -406,14 +406,14 @@ export declare function useQuery(query: PostgrestQueryBuilder<any, any> | Postgr
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutateAsync: (mutateCallbacks?: CoupledMutateCallbacks) => {
         update: (values: import("supastruct").SupabaseRecord, mutationOptions?: import("supastruct").MutationCountOption) => void;
         insert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").InsertMutationOptions) => void | Promise<any>;
         upsert: (values: import("supastruct").SupabaseRecord | import("supastruct").SupabaseRecord[], mutationOptions?: import("supastruct").UpsertMutationOptions) => void | Promise<any>;
-        delete: (ids?: string | number | string[] | number[], mutationOptions?: import("supastruct").MutationCountOption) => void;
+        delete: (ids?: string | number | number[] | string[], mutationOptions?: import("supastruct").MutationCountOption) => void;
         custom: (getCustomMutation: import("./types").CustomMutationGetter) => void;
     };
     mutationState: {

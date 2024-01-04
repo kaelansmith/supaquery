@@ -47,9 +47,10 @@ function useQuery(query, options) {
     const supabaseProxyClient = finalQuery.getProxyClient();
     const supabaseClient = finalQuery.getSupabaseClient();
     const queryClient = (0, react_query_1.useQueryClient)();
+    supabaseProxyClient.addQueryMeta({ usingSupaquery: true }); // helps other Supastruct query abstractions conditionally handle Supaquery-wrapped queries differently
     const _a = (0, react_query_1.useMutation)((partialMutationQueryMeta) => __awaiter(this, void 0, void 0, function* () {
         const { mergedQueryMeta } = (0, helpers_1.getCoupledMutationQueryMeta)(partialMutationQueryMeta, queryMeta);
-        // execute the mutation query using the original/same proxyClient as the query, :
+        // execute the mutation using the same proxyClient used by the original query:
         const { data, error } = yield (0, supastruct_1.supastruct)(supabaseProxyClient, mergedQueryMeta);
         if (error)
             throw (0, helpers_1.buildSupabaseErrorMessage)(error); // triggers `onError` callback
@@ -65,9 +66,9 @@ function useQuery(query, options) {
          * a second later -- that small amount of gained time still makes a substantial UI/UX difference).
          */
         onMutate: (partialMutationQueryMeta) => __awaiter(this, void 0, void 0, function* () {
+            const { mutationQueryMeta } = (0, helpers_1.getCoupledMutationQueryMeta)(partialMutationQueryMeta, queryMeta);
             const { previousData } = yield (0, optimisticallyMutateCache_1.optimisticallyMutateCache)({
-                partialMutationQueryMeta,
-                queryMeta,
+                mutationQueryMeta,
                 queryKey,
                 queryClient,
                 primaryKey,

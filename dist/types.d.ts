@@ -19,8 +19,7 @@ export type MutateWrapperOptions = {
     queryMeta: QueryMeta;
 };
 export type OptimisticMutateCacheProps = {
-    partialMutationQueryMeta: Partial<QueryMeta>;
-    queryMeta: QueryMeta;
+    mutationQueryMeta: Partial<QueryMeta>;
     queryKey: QueryKey;
     queryClient: QueryClient;
     primaryKey: string;
