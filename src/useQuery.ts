@@ -54,6 +54,8 @@ export function useQuery(
   const supabaseClient = finalQuery.getSupabaseClient();
   const queryClient = useQueryClient();
 
+  supabaseProxyClient.addQueryMeta({ usingSupaquery: true }); // helps other Supastruct query abstractions conditionally handle Supaquery-wrapped queries differently
+
   const { mutate, mutateAsync, ...rest } = useMutation(
     async (partialMutationQueryMeta: Partial<QueryMeta>) => {
       const { mergedQueryMeta } = getCoupledMutationQueryMeta(
@@ -61,7 +63,7 @@ export function useQuery(
         queryMeta
       );
 
-      // execute the mutation query using the original/same proxyClient as the query, :
+      // execute the mutation using the same proxyClient used by the original query:
       const { data, error } = await supastruct(
         supabaseProxyClient,
         mergedQueryMeta
@@ -82,9 +84,13 @@ export function useQuery(
        * a second later -- that small amount of gained time still makes a substantial UI/UX difference).
        */
       onMutate: async (partialMutationQueryMeta) => {
-        const { previousData } = await optimisticallyMutateCache({
+        const { mutationQueryMeta } = getCoupledMutationQueryMeta(
           partialMutationQueryMeta,
-          queryMeta,
+          queryMeta
+        );
+
+        const { previousData } = await optimisticallyMutateCache({
+          mutationQueryMeta,
           queryKey,
           queryClient,
           primaryKey,

@@ -1,25 +1,16 @@
 import { SupabaseRecord } from "supastruct";
-import { getCoupledMutationQueryMeta } from "./helpers";
 import { OptimisticMutateCacheProps } from "./types";
 
 export const optimisticallyMutateCache = async ({
-  partialMutationQueryMeta,
-  queryMeta,
+  mutationQueryMeta,
   queryKey,
   queryClient,
   primaryKey,
 }: OptimisticMutateCacheProps) => {
-  const { mutationQueryMeta } = getCoupledMutationQueryMeta(
-    partialMutationQueryMeta,
-    queryMeta
-  );
-
-  // const { mutation } = partialMutationQueryMeta;
   const { mutation } = mutationQueryMeta;
   const isCustomMutation = typeof mutation != "string";
 
   let newData = mutation != "delete" ? mutationQueryMeta.values : null;
-  // globalMutationOptions?.onMutate?.(partialMutationQueryMeta); // call user-provided custom onMutate
 
   // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
   await queryClient.cancelQueries(queryKey);
@@ -41,7 +32,6 @@ export const optimisticallyMutateCache = async ({
 
           console.log("OPTIMISTIC UPDATE:", {
             queryKey,
-            queryMeta,
             mutationQueryMeta,
             newData,
             oldData: isOldDataArray ? [...oldData] : { ...oldData },
@@ -96,7 +86,6 @@ export const optimisticallyMutateCache = async ({
                 let idOfRowToUpdate: any = (newData as SupabaseRecord)[
                   primaryKey
                 ];
-                // if (queryMeta.filters)
 
                 if (mutation == "update" && !idOfRowToUpdate) {
                   console.error(
