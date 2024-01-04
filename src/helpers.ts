@@ -33,15 +33,12 @@ const sortObjectKeysAlphabetically = (obj: Record<string, any>) => {
 export const getCoupledMutationQueryMeta = (
   partialMutationQueryMeta: Partial<QueryMeta>,
   initialQueryMeta: QueryMeta
-) => {
+): { mergedQueryMeta: QueryMeta; mutationQueryMeta: Partial<QueryMeta> } => {
   const { mutation } = partialMutationQueryMeta;
   let mergedQueryMeta: QueryMeta;
   let mutationQueryMeta: Partial<QueryMeta>;
 
   if (typeof mutation == "string") {
-    // abstracted mutation (`mutate` option #1):
-    // const { mutationOptions } = partialMutationQueryMeta;
-
     mutationQueryMeta = {
       ...partialMutationQueryMeta,
     };
