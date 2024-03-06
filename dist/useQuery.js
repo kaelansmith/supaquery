@@ -29,18 +29,29 @@ const helpers_1 = require("./helpers");
 const optimisticallyMutateCache_1 = require("./optimisticallyMutateCache");
 const mutateWrapper_1 = require("./mutateWrapper");
 function useQuery(query, options) {
-    const { primaryKey = "id", queryOptions } = options !== null && options !== void 0 ? options : {};
+    var _a;
+    const { primaryKey = "id", queryOptions, unallowedIds: userUnallowedIds = [], } = options !== null && options !== void 0 ? options : {};
     if (query instanceof postgrest_js_1.PostgrestQueryBuilder)
         query = query.select(); // this line allows people to not have to always specify `select()` if it's a generic table-wide select.. we add it for them, so they can just write `db.from("todos")`
     const finalQuery = query; // `finalQuery` only exists for type assertion
     const queryMeta = (0, supastruct_2.getMetaFromQuery)(finalQuery);
     const queryKey = (0, helpers_1.getKeyFromMeta)(queryMeta);
+    // check if the query is filtering on an unallowed primaryKey value, in which case we override query result with `data: null` at the end
+    let returnNullData = false;
+    const unallowedIds = ["new", false, true, ...userUnallowedIds];
+    const { eq } = (_a = queryMeta.filters) !== null && _a !== void 0 ? _a : {};
+    if (eq &&
+        typeof eq[0] == "string" &&
+        eq[0] == primaryKey &&
+        unallowedIds.includes(eq[1])) {
+        returnNullData = true;
+    }
     const queryResponse = (0, react_query_1.useQuery)(queryKey, () => __awaiter(this, void 0, void 0, function* () {
         const { data, error } = yield finalQuery;
         if (error)
             throw (0, helpers_1.buildSupabaseErrorMessage)(error);
         return data;
-    }), queryOptions);
+    }), Object.assign({ enabled: returnNullData != true }, queryOptions));
     // ========================
     // Set up coupled mutation:
     // ========================
@@ -48,7 +59,7 @@ function useQuery(query, options) {
     const supabaseClient = finalQuery.getSupabaseClient();
     const queryClient = (0, react_query_1.useQueryClient)();
     supabaseProxyClient.addQueryMeta({ usingSupaquery: true }); // helps other Supastruct query abstractions conditionally handle Supaquery-wrapped queries differently
-    const _a = (0, react_query_1.useMutation)((partialMutationQueryMeta) => __awaiter(this, void 0, void 0, function* () {
+    const _b = (0, react_query_1.useMutation)((partialMutationQueryMeta) => __awaiter(this, void 0, void 0, function* () {
         const { mergedQueryMeta } = (0, helpers_1.getCoupledMutationQueryMeta)(partialMutationQueryMeta, queryMeta);
         // execute the mutation using the same proxyClient used by the original query:
         const { data, error } = yield (0, supastruct_1.supastruct)(supabaseProxyClient, mergedQueryMeta);
@@ -92,14 +103,25 @@ function useQuery(query, options) {
             // Always refetch after error or success:
             (0, helpers_1.invalidateCache)(queryClient, queryKey);
         },
-    }), { mutate, mutateAsync } = _a, rest = __rest(_a, ["mutate", "mutateAsync"]);
+    }), { mutate, mutateAsync } = _b, rest = __rest(_b, ["mutate", "mutateAsync"]);
     const mutateWrapperOptions = {
         primaryKey,
         supabaseClient,
         queryMeta,
     };
     const result = Object.assign(Object.assign({ queryKey,
-        queryMeta }, queryResponse), { mutate: (mutateCallbacks) => (0, mutateWrapper_1.mutateWrapper)((variables) => mutate(variables, mutateCallbacks), mutateWrapperOptions), mutateAsync: (mutateCallbacks) => (0, mutateWrapper_1.mutateWrapper)((variables) => mutateAsync(variables, mutateCallbacks), mutateWrapperOptions), mutationState: Object.assign({}, rest), invalidateCache: () => (0, helpers_1.invalidateCache)(queryClient, queryKey) });
+        queryMeta }, (returnNullData
+        ? {
+            data: null,
+            error: null,
+            isError: false,
+            isFetching: false,
+            isFetched: true,
+            isIdle: false,
+            isLoading: false,
+            isLoadingError: false,
+        }
+        : queryResponse)), { mutate: (mutateCallbacks) => (0, mutateWrapper_1.mutateWrapper)((variables) => mutate(variables, mutateCallbacks), mutateWrapperOptions), mutateAsync: (mutateCallbacks) => (0, mutateWrapper_1.mutateWrapper)((variables) => mutateAsync(variables, mutateCallbacks), mutateWrapperOptions), mutationState: Object.assign({}, rest), invalidateCache: () => (0, helpers_1.invalidateCache)(queryClient, queryKey) });
     return result;
 }
 exports.useQuery = useQuery;

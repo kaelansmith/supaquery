@@ -28,13 +28,30 @@ export function useQuery(
     | PostgrestBuilder<any>,
   options?: UseQueryOptions
 ) {
-  const { primaryKey = "id", queryOptions } = options ?? {};
+  const {
+    primaryKey = "id",
+    queryOptions,
+    unallowedIds: userUnallowedIds = [],
+  } = options ?? {};
 
   if (query instanceof PostgrestQueryBuilder) query = query.select(); // this line allows people to not have to always specify `select()` if it's a generic table-wide select.. we add it for them, so they can just write `db.from("todos")`
   const finalQuery = query as SupastructFilterBuilder; // `finalQuery` only exists for type assertion
 
   const queryMeta = getMetaFromQuery(finalQuery);
   const queryKey = getKeyFromMeta(queryMeta);
+
+  // check if the query is filtering on an unallowed primaryKey value, in which case we override query result with `data: null` at the end
+  let returnNullData = false;
+  const unallowedIds = ["new", false, true, ...userUnallowedIds];
+  const { eq } = queryMeta.filters ?? {};
+  if (
+    eq &&
+    typeof eq[0] == "string" &&
+    eq[0] == primaryKey &&
+    unallowedIds.includes(eq[1] as string)
+  ) {
+    returnNullData = true;
+  }
 
   const queryResponse = useReactQuery(
     queryKey,
@@ -43,7 +60,10 @@ export function useQuery(
       if (error) throw buildSupabaseErrorMessage(error);
       return data;
     },
-    queryOptions
+    {
+      enabled: returnNullData != true,
+      ...queryOptions,
+    }
   );
 
   // ========================
@@ -132,7 +152,18 @@ export function useQuery(
   const result = {
     queryKey,
     queryMeta,
-    ...queryResponse,
+    ...(returnNullData
+      ? {
+          data: null,
+          error: null,
+          isError: false,
+          isFetching: false,
+          isFetched: true,
+          isIdle: false,
+          isLoading: false,
+          isLoadingError: false,
+        }
+      : queryResponse),
     mutate: (mutateCallbacks?: CoupledMutateCallbacks) =>
       mutateWrapper(
         (variables) => mutate(variables, mutateCallbacks),
