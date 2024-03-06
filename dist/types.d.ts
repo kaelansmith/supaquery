@@ -7,6 +7,7 @@ export type QueryKey = any[];
 export type UseQueryOptions = {
     primaryKey?: string;
     queryOptions?: Omit<UseReactQueryOptions, "queryKey" | "queryFn">;
+    unallowedIds?: string[];
 };
 export type CoupledMutationVariables = CustomMutationVariables | UpdateVariables | InsertVariables | UpsertVariables | DeleteVariables;
 export type CustomMutationGetter = (queryBuilder: PostgrestQueryBuilder<any, any>) => PostgrestFilterBuilder<any, any, any>;

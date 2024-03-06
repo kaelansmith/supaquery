@@ -25,6 +25,7 @@ export type QueryKey = any[];
 export type UseQueryOptions = {
   primaryKey?: string;
   queryOptions?: Omit<UseReactQueryOptions, "queryKey" | "queryFn">;
+  unallowedIds?: string[];
   // TODO: consider adding `globalMutationOptions` as 3rd arg
 };
 
