@@ -37,13 +37,17 @@
   "homepage": "https://github.com/kaelansmith/supaquery#readme",
   "devDependencies": {
     "@types/node": "^18.18.1",
+    "@types/react": "^18.3.7",
     "tsc-watch": "^5.0.3",
     "typescript": "^5.3.2"
   },
   "peerDependencies": {
-    "@supabase/supabase-js": ">= 2.7.1",
     "@supabase/postgrest-js": ">= 1.1.x",
-    "supastruct": ">= 0.1.0",
-    "react-query": ">= 3.x.x"
+    "@supabase/supabase-js": ">= 2.7.1",
+    "react-query": ">= 3.x.x",
+    "supastruct": ">= 0.1.0"
+  },
+  "overrides": {
+    "@types/scheduler": "< 0.23.0"
   }
 }
