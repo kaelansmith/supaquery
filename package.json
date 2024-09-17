@@ -1,6 +1,6 @@
 {
   "name": "@kaelan/supaquery",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Easily integrate Supabase & React Query.",
   "main": "dist/index",
   "types": "dist/index.d.ts",
