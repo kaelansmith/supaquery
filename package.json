@@ -45,7 +45,7 @@
     "@supabase/postgrest-js": ">= 1.1.x",
     "@supabase/supabase-js": ">= 2.7.1",
     "react-query": ">= 3.x.x",
-    "supastruct": ">= 0.1.0"
+    "supastruct": ">= 0.1.x"
   },
   "overrides": {
     "@types/scheduler": "< 0.23.0"
